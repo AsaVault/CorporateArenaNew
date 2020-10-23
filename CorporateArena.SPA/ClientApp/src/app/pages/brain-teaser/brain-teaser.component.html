@@ -1,0 +1,88 @@
+<div class="container my-5">
+  <div class="d-flex flex-column align-items-center">
+    <h2 class="font-weight-bold">Brain Teaser</h2>
+    <img src="/assets/questions.svg" alt="" class="img-fluid" />
+  </div>
+
+  <div class="container">
+    <div class="question-card mt-5" [ngClass]="isSelected(brainTeaser.id) ? 'shadow' : null"
+      *ngFor="let brainTeaser of brainTeasers" (click)="toggleSelected(brainTeaser.id)">
+      <div class="mb-4">
+        <div class="stats">
+          <span *ngIf="brainTeaser.brainTeaserAnswers?.length > 0">{{ brainTeaser.brainTeaserAnswers.length }}
+            answers</span>
+          <span *ngIf="brainTeaser.brainTeaserAnswers === null">No answers yet</span>
+          <span *ngIf="brainTeaser.brainTeaserAnswers?.length === 0">No answers yet</span>
+          <span>Posted {{ brainTeaser.dateCreated | date: "fullDate" }}</span>
+        </div>
+        <h2>Riddle</h2>
+        <p>
+          {{ brainTeaser.riddle }}
+        </p>
+        <button class="btn answer-btn" (click)="toggleView('answer')">
+          Answer it
+        </button>
+        <button
+          class="btn view-btn"
+          *ngIf="brainTeaser.brainTeaserAnswers.length > 0"
+          (click)="toggleView('answers')"
+        >
+          View Answers
+        </button>
+
+        <!-- My new Button implemented -->
+        <!-- <a class="btn answer-btn" routerLink="{{ getUrl(brainTeaser.id) }}">
+          Answer it
+        </a> -->
+        <a class="btn view-btn" 
+        *ngIf="brainTeaser.brainTeaserAnswers.length > 0"
+        routerLink="{{ getUrl(brainTeaser.id) }}">
+          Approve Answers
+        </a>
+      </div>
+
+      <ng-template [ngIf]="isSelected(brainTeaser.id)">
+        <ng-template [ngIf]="view === 'answers'">
+          <div *ngFor="let winner of brainTeaser.brainTeaserWinners" >
+            <div class="answer-card mb-4 mx-3" *ngIf="winner.isDisplayed">
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="d-flex">
+                <div class="user-image mr-3">
+                  <img class="img-fluid" src="/assets/mock_user_image.jpg" alt="" />
+                </div>
+                <div class="user">
+                  <h4 class="font-weight-bold">{{ winner.userName }}</h4>
+                  <span>... writes</span>
+                </div>
+              </div>
+              <span class="time">{{
+                winner.dateCreated | date: "fullDate"
+              }}</span>
+            </div>
+            <p class="mt-3">
+              {{ winner.answer }}
+            </p>
+          </div>
+          </div>
+        </ng-template>
+        <ng-template [ngIf]="view === 'answer'">
+        <div class="px-5 answer-box row d-flex">
+          <img src="/assets/user-icon.svg" alt=""
+            class="img-fluid d-none d-md-block mr-3 col-2 align-self-baseline w-25 p-4 bg-white shadow-sm" />
+          <form (ngSubmit)="submitAnswer(brainTeaser.id)" class="col">
+            <div class="input mb-3 w-75">
+              <input type="text" placeholder="Name" name="name" [(ngModel)]="name" />
+            </div>
+            <div class="input w-75">
+              <textarea name="body" id="" rows="7" placeholder="Your answer" [(ngModel)]="body"></textarea>
+            </div>
+            <button type="submit" class="btn">Submit</button>
+          </form>
+        </div>
+      </ng-template>
+      </ng-template>
+    </div>
+
+    <app-newsletter></app-newsletter>
+  </div>
+</div>

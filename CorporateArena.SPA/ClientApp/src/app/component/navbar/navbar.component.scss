@@ -1,0 +1,37 @@
+$navColor: #505f98;
+
+.main {
+  padding: 1rem 5rem;
+  a {
+    color: $navColor;
+    text-decoration: none;
+  }
+}
+
+.mobile {
+  padding: 1rem 2rem;
+  position: relative;
+  z-index: 9999;
+
+  button {
+    background: none;
+    border: 2px solid $navColor;
+    color: $navColor;
+  }
+
+  .menu {
+    position: absolute;
+    right: 0;
+    top: 7rem;
+    width: 40vw;
+    background-color: white;
+    li {
+      border-bottom: 2px solid lighten($navColor, 10%);
+      width: 100%;
+
+      &:last-child {
+        border: none;
+      }
+    }
+  }
+}

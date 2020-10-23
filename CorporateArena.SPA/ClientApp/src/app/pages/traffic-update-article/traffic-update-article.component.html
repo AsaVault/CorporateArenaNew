@@ -1,0 +1,57 @@
+<div class="container my-5 mx-auto">
+  <h2 class="font-weight-bold text-center mb-5">Traffic Updates</h2>
+  <div class="d-flex flex-sm-column flex-md-row mb-5">
+    <img src="/assets/traffic-jam.jpg" alt="" class="img-fluid mr-3" />
+    <div class="align-self-center">
+      <h2 class="font-weight-bold">
+        {{ trafficUpdate.title }}
+      </h2>
+      <div class="d-flex my-3">
+        <svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M4.91421 1.41421L3.5 0L0 3.5L1.41421 4.91421L4.91421 1.41421ZM17.9142 0L21.4142 3.5L20 4.91421L16.5 1.41421L17.9142 0ZM10.7071 20.7071C5.18426 20.7071 0.707107 16.23 0.707107 10.7071C0.707107 5.18426 5.18426 0.707107 10.7071 0.707107C16.23 0.707107 20.7071 5.18426 20.7071 10.7071C20.7071 16.23 16.23 20.7071 10.7071 20.7071ZM10.7071 18.7071C15.1254 18.7071 18.7071 15.1254 18.7071 10.7071C18.7071 6.28883 15.1254 2.70711 10.7071 2.70711C6.28883 2.70711 2.70711 6.28883 2.70711 10.7071C2.70711 15.1254 6.28883 18.7071 10.7071 18.7071ZM15.7071 9.70711H11.7071V4.70711H9.70711V11.7071H15.7071V9.70711Z"
+            fill="#7C98A6" />
+        </svg>
+        <span class="ml-2">Posted on {{ trafficUpdate.dateCreated | date: "fullDate" }}</span>
+      </div>
+      <p>
+        {{ trafficUpdate.description }}
+      </p>
+
+      <span class="text-muted mt-4"><i class="far fa-comment"></i>
+        {{ trafficUpdate.trafficUpdateComments?.length }} comments</span>
+    </div>
+  </div>
+
+  <div class="answer-card mb-4 mt-5" *ngFor="let comment of trafficUpdate.trafficUpdateComments">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="d-flex">
+        <div class="user-image mr-3">
+          <img class="img-fluid" src="/assets/mock_user_image.jpg" alt="" />
+        </div>
+        <div class="user">
+          <h4 class="font-weight-bold">{{ comment.title }}</h4>
+          <span>... writes</span>
+        </div>
+      </div>
+      <span class="time">{{ comment.dateCreated | date: "fullDate" }}</span>
+    </div>
+    <p class="mt-3">
+      {{ comment.comment }}
+    </p>
+  </div>
+
+  <div class="px-5 answer-box row d-flex">
+    <img src="/assets/user-icon.svg" alt=""
+      class="img-fluid d-none d-md-block mr-3 col-2 align-self-baseline w-25 p-4 bg-white shadow-sm" />
+    <form (ngSubmit)="submitComment()" class="col">
+      <div class="input mb-3 w-75">
+        <input type="text" placeholder="Name" [(ngModel)]="name" name="name" />
+      </div>
+      <div class="input w-75">
+        <textarea name="body" id="" rows="7" placeholder="Comment" [(ngModel)]="body"></textarea>
+      </div>
+      <button type="submit" class="btn">Submit</button>
+    </form>
+  </div>
+</div>

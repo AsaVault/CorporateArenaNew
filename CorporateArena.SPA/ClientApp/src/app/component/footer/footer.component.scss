@@ -1,0 +1,69 @@
+.logo {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  font-size: 20px;
+  padding: 0.2rem 0.4rem;
+  color: #FFFFFF;
+  text-decoration: none;
+  transition: all 500ms ease;
+}
+
+.facebook {
+  background-color: #272EAE;
+
+  &:hover {
+    background-color: darken(#272EAE, 10%);
+    color: #FFFFFF;
+  }
+}
+
+.twitter {
+  background-color: #1590D8;
+
+  &:hover {
+    background-color: darken(#1590D8, 10%);
+    color: #FFFFFF;
+  }
+}
+
+.youtube {
+  background-color: #D0021B;
+
+  &:hover {
+    background-color: darken(#D0021B, 10%);
+    color: #FFFFFF;
+  }
+}
+
+.dribble {
+  background-color: #F53E6A;
+
+  &:hover {
+    background-color: darken(#F53E6A, 10%);
+    color: #FFFFFF;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: #1F2431;
+}
+
+.secondary-footer {
+  padding: 6rem 0;
+  background-image: url("/assets/footer-bg.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.primary-footer {
+  background-color: #E7ECFF;
+  padding: 2rem;
+}
+
+.logo.dark {
+  color: #939EA4;
+  background-color: transparent;
+}

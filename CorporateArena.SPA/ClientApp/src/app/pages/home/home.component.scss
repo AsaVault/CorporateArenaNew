@@ -1,0 +1,135 @@
+.hero {
+  h1 {
+    color: #37447e;
+    font-weight: 700;
+  }
+
+  p {
+    font-size: 15px;
+    line-height: 30px;
+    color: #505f98;
+  }
+
+  a.btn {
+    border-radius: 10px;
+    padding: 0.3rem 2rem;
+  }
+}
+
+.research-section {
+  background: linear-gradient(183.29deg, #ffffff 78.49%, #eeeeff 120.83%);
+
+  h1 {
+    font-weight: 700;
+    color: #091133;
+  }
+
+  .research-list {
+    overflow-x: auto;
+
+    .research-card {
+      min-width: 20rem;
+      background: linear-gradient(30.03deg, #f1f3f6 -2.87%, #ffffff 99.99%);
+      box-shadow: 10px 10px 36px #e7ecff, -10px -10px 16px #ffffff,
+        inset 4px 4px 4px rgba(231, 236, 255, 0.25), inset -4px -4px 8px #ffffff;
+      padding: 15rem 0.8rem 0.8rem;
+      margin: 20px;
+    }
+  }
+}
+
+.brain-teaser-section {
+  .hero {
+    .heading {
+      h2 {
+        font-weight: 700;
+      }
+
+      span {
+        width: 7rem;
+        border-bottom: 5px solid #be52f2;
+        align-self: center;
+      }
+    }
+  }
+
+  .img-slider {
+    .controls {
+      .btn {
+        background: #ffffff;
+        border: 2px solid #b6bdfc;
+        color: #6c63ff;
+        transition: all 500ms ease;
+        border-radius: 10px;
+
+        &:hover {
+          color: #ffffff;
+          background: #6c63ff;
+        }
+      }
+
+      ul {
+        list-style-type: none;
+        display: flex;
+
+        li {
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          display: block;
+          background-color: #c4c4c4;
+          margin-right: 10px;
+          cursor: pointer;
+        }
+
+        li.active {
+          background-color: #f4e7fc;
+        }
+      }
+    }
+  }
+}
+
+.vacancy-section {
+  position: relative;
+  margin: 4rem 0;
+
+  .container {
+    background: rgba(246, 232, 253, 0.65);
+    padding: 1.5rem;
+
+    h2 {
+      font-weight: 700;
+    }
+  }
+
+  .polka-dots {
+    position: absolute;
+    bottom: -50px;
+    left: 2%;
+  }
+}
+
+.traffic-update-section {
+  position: relative;
+  margin: 4rem 0;
+  background: linear-gradient(
+    180deg,
+    rgba(231, 236, 255, 0.01) 0%,
+    #f1f3f6 100%
+  );
+
+  .container {
+    padding: 1.5rem;
+
+    h2 {
+      font-weight: 700;
+    }
+  }
+
+  .illustration {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}

@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/CorporateArena
+/CoreporateArena.Domain.Core/bin
+/CoreporateArena.Domain.Core/obj
+/CoreporateArena.Infrastructure.Core/obj
+/CoreporateArena.Infrastructure.Core/bin
+/CorporateArena/bin
+/CorporateArena/obj
+/CorporateArena/Properties/PublishProfiles
+*.Role)

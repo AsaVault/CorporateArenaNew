@@ -1,0 +1,17 @@
+<div class="container my-5 mx-auto">
+  <h2 class="font-weight-bold text-center mb-5">Create Traffic Update</h2>
+
+  <div class="px-5 answer-box row d-flex">
+    <img src="/assets/user-icon.svg" alt=""
+      class="img-fluid d-none d-md-block mr-3 col-2 align-self-baseline w-25 p-4 bg-white shadow-sm" />
+    <form (ngSubmit)="submitTrafficUpdate()" class="col">
+      <div class="input mb-3 w-75">
+        <input type="text" placeholder="title" [(ngModel)]="title" name="name" />
+      </div>
+      <div class="input w-75">
+        <textarea name="body" id="" rows="7" placeholder="body" [(ngModel)]="content"></textarea>
+      </div>
+      <button type="submit" class="btn">Submit</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+.hero {
+  margin-top: 7rem;
+  h1 {
+    color: #182b82;
+  }
+}
+
+.contact {
+  margin: 7rem auto 4rem auto;
+  .heading {
+    color: #182b82;
+  }
+  .form {
+    box-shadow: 10px 10px 16px #dee4ed, -10px -10px 16px #ffffff,
+      inset 4px 4px 4px rgba(222, 228, 237, 0.4), inset -4px -4px 8px #ffffff;
+    border-radius: 10px;
+    padding: 4rem;
+
+    .input {
+      box-shadow: 10px 10px 16px #dee4ed, -10px -10px 16px #ffffff,
+        inset 4px 4px 4px rgba(222, 228, 237, 0.4), inset -4px -4px 8px #ffffff;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 2rem;
+
+      input,
+      textarea {
+        outline: none;
+        background: none;
+        width: 100%;
+        border: none;
+      }
+    }
+
+    button[type="submit"] {
+      background: #6f5ed8;
+      border-radius: 10px;
+      color: white;
+      padding: 1rem 1.5rem;
+
+      &:hover {
+        background: darken(#6f5ed8, 5%);
+        font-weight: bold;
+      }
+    }
+  }
+}
