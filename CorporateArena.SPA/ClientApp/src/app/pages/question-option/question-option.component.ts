@@ -55,6 +55,7 @@ export class QuestionOptionComponent implements OnInit {
         // this.blog.comments = [newComment, ...this.blog.comments];
         this.content = '';
         this.optionLetter = '';
+        this.selectedEntry = true;
         this.isSubmitted = true;
       });
   }

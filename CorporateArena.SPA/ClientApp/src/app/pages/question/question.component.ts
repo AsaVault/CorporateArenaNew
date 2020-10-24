@@ -25,7 +25,7 @@ export class QuestionComponent implements OnInit {
     this.page = 1;
     this.pageSize = 10;
     // tslint:disable-next-line: deprecation
-    this.service.getAllQuestion(1, 10).subscribe((data) => {
+    this.service.getAll(1, 10).subscribe((data) => {
       this.questions = data;
       // console.log(`Brain teasers are as follows: ${JSON.stringify(this.brainTeasers)}`);
       if (this.questions.length > 0) {
