@@ -20,6 +20,9 @@ import { BlogCreateComponent } from './pages/blog-create/blog-create.component';
 import { BlogArticleComponent } from './pages/blog-article/blog-article.component';
 import { VacanciesComponent } from './pages/vacancies/vacancies.component';
 import { TrafficUpdateCreateComponent } from './pages/traffic-update-create/traffic-update-create.component';
+import { QuestionOptionComponent } from './pages/question-option/question-option.component';
+import { QuestionComponent } from './pages/question/question.component';
+import { QuestionCreateComponent } from './pages/question-create/question-create.component';
 
 
 @NgModule({
@@ -40,6 +43,9 @@ import { TrafficUpdateCreateComponent } from './pages/traffic-update-create/traf
     BlogArticleComponent,
     BlogCreateComponent,
     VacanciesComponent,
+    QuestionComponent,
+    QuestionCreateComponent,
+    QuestionOptionComponent
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],

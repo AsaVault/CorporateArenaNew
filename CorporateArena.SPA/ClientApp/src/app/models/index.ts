@@ -1,3 +1,6 @@
+import Question from './Question';
+import QuestionOptions from './QuestionOptions';
+import QuestionAnswers from './QuestionAnswers';
 import TrafficUpdate from './TrafficUpdate';
 import CommentRequest from './CommentRequest';
 import Comment from './Comment';
@@ -16,4 +19,7 @@ export {
   Vacancy,
   JobCategory,
   JobType,
+  Question,
+  QuestionOptions,
+  QuestionAnswers
 };

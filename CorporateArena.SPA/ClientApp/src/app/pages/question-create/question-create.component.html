@@ -1,0 +1,22 @@
+<div class="container my-5 mx-auto">
+  <h2 class="font-weight-bold text-center mb-5">Create Question</h2>
+
+  <div class="px-5 answer-box row d-flex">
+    <img
+      src="/assets/user-icon.svg"
+      alt=""
+      class="img-fluid d-none d-md-block mr-3 col-2 align-self-baseline w-25 p-4 bg-white shadow-sm"
+    />
+    <form (ngSubmit)="submitQuestion()" class="col">
+      <div class="input mb-3 w-75">
+        <input
+          type="text"
+          placeholder="Enter new question"
+          [(ngModel)]="content"
+          name="content"
+        />
+      </div>
+      <button type="submit" class="btn">Submit</button>
+    </form>
+  </div>
+</div>

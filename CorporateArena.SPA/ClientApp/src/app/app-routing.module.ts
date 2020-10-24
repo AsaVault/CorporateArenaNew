@@ -1,3 +1,6 @@
+import { QuestionOptionComponent } from './pages/question-option/question-option.component';
+import { QuestionComponent } from './pages/question/question.component';
+import { QuestionCreateComponent } from './pages/question-create/question-create.component';
 import { BrainTeaserGetWithAnswerComponent } from './pages/brain-teaser-get-with-answer/brain-teaser-get-with-answer.component';
 import { BrainTeaserGetComponent } from './pages/brain-teaser-get/brain-teaser-get.component';
 import { TrafficUpdateCreateComponent } from './pages/traffic-update-create/traffic-update-create.component';
@@ -26,6 +29,9 @@ const routes: Routes = [
   { path: 'traffic_updates', component: TrafficUpdateComponent },
   { path: 'traffic_updates/:id', component: TrafficUpdateArticleComponent },
   { path: 'traffic-update-create', component: TrafficUpdateCreateComponent },
+  { path: 'question', component: QuestionComponent },
+  { path: 'question-create', component: QuestionCreateComponent },
+  { path: 'question/:id', component: QuestionOptionComponent }
 ];
 
 @NgModule({
