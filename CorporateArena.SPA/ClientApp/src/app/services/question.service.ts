@@ -16,7 +16,7 @@ export class QuestionService {
 
 constructor(private http: HttpClient) { }
 
-getAllQuestion(page: number, pageSize: number): Observable<Question[]> {
+getAll(page: number, pageSize: number): Observable<Question[]> {
   return this.http.get<Question[]>(`${this.questionUrl}/${page}/${pageSize}`);
 }
 
@@ -28,19 +28,19 @@ patchQuestion(data: Question): Observable<Question> {
   return this.http.patch<Question>(`${this.questionUrl}/${data.id}`, data, this.httpOptions);
 }
 
-postQuestion(data: Question): Observable<Question> {
-  return this.http.post<Question>(
+postQuestion(data: Question): Observable<any> {
+  return this.http.post(
     this.questionUrl,
     data,
-    this.httpOptions
+    {responseType: 'text'}
   );
 }
 
-postQuestionOptions(id: number, data: QuestionOptions): Observable<QuestionOptions> {
-  return this.http.post<QuestionOptions>(
+postQuestionOptions(id: number, data: QuestionOptions): Observable<any> {
+  return this.http.post(
     `${this.questionUrl}/option/${id}`,
     data,
-    this.httpOptions
+    {responseType: 'text'}
   );
 }
 }
