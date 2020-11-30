@@ -60,9 +60,9 @@ namespace CorporateArena.Domain
             return vacancies;
 
         }
-        public async Task<List<Vacancy>> GetVacancyByIndustryAsync(string industry)
+        public async Task<List<Vacancy>> GetVacancyByJobCategoryAsync(string jobCategory)
         {
-            var vacancies = await _vRepo.getByIndustryAsync(industry);
+            var vacancies = await _vRepo.getByJobCategoryAsync(jobCategory);
             return vacancies;
         }
         public async Task<List<Vacancy>> GetVacancyByTitleAsync(string title)
@@ -76,12 +76,23 @@ namespace CorporateArena.Domain
             return vacancies;
         }
 
-        
+        public async Task<List<Vacancy>> GetVacancyByJobCategoryIdAsync(int id)
+        {
+            var vacancies = await _vRepo.getByJobCategoryIdAsync(id);
+            return vacancies;
+        }
 
-        
+        public async Task<List<Vacancy>> GetVacancyByCompanyIdAsync(int id)
+        {
+            var vacancies = await _vRepo.getByCompanyIdAsync(id);
+            return vacancies;
+        }
 
-        
-
+        public async Task<List<Vacancy>> GetVacancyByJobTypeAsync(int id)
+        {
+            var vacancies = await _vRepo.getByJobTypeAsync(id);
+            return vacancies;
+        }
     }
 
 }

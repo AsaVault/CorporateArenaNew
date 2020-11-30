@@ -26,6 +26,11 @@ namespace CorporateArena.Domain
         // to monitor users that already liked the comment
         
         public List<ArticleLike> ArticleLikes { get; set; }
+        public int QuestionId { get; set; }
+
+        [ForeignKey("UserId")]
+        [InverseProperty("UserArticles")]
+        public virtual User User { get; set; }
 
 
     }

@@ -4,14 +4,16 @@ using CorporateArena.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CorporateArena.Presentation.Core.Migrations
 {
     [DbContext(typeof(TContext))]
-    partial class TContextModelSnapshot : ModelSnapshot
+    [Migration("20201102175909_CompanyJobCategoryAdded")]
+    partial class CompanyJobCategoryAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -432,7 +434,7 @@ namespace CorporateArena.Presentation.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("jobCategories","arenas");
+                    b.ToTable("JobCategorys");
                 });
 
             modelBuilder.Entity("CorporateArena.Domain.Privilege", b =>
@@ -739,7 +741,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                         new
                         {
                             ID = 1,
-                            DateCreated = new DateTime(2020, 11, 4, 18, 49, 11, 912, DateTimeKind.Local).AddTicks(862),
+                            DateCreated = new DateTime(2020, 11, 2, 18, 59, 8, 251, DateTimeKind.Local).AddTicks(2336),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DisplayName = "SuperUser",
                             Name = "SuperUser",
@@ -748,7 +750,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                         new
                         {
                             ID = 2,
-                            DateCreated = new DateTime(2020, 11, 4, 18, 49, 11, 914, DateTimeKind.Local).AddTicks(6502),
+                            DateCreated = new DateTime(2020, 11, 2, 18, 59, 8, 254, DateTimeKind.Local).AddTicks(221),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DisplayName = "Basic",
                             Name = "Basic",
@@ -1104,7 +1106,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                         new
                         {
                             ID = 1,
-                            DateCreated = new DateTime(2020, 11, 4, 18, 49, 11, 915, DateTimeKind.Local).AddTicks(983),
+                            DateCreated = new DateTime(2020, 11, 2, 18, 59, 8, 254, DateTimeKind.Local).AddTicks(7491),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "tkolawole@Inspirecoders.com",
                             FirstName = "System",
@@ -1149,7 +1151,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                         new
                         {
                             ID = 1,
-                            DateCreated = new DateTime(2020, 11, 4, 18, 49, 11, 915, DateTimeKind.Local).AddTicks(5802),
+                            DateCreated = new DateTime(2020, 11, 2, 18, 59, 8, 255, DateTimeKind.Local).AddTicks(6460),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleID = 1,
                             UserID = 1
@@ -1184,7 +1186,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                     b.Property<bool>("IsDisplayed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("JobCategoryId")
+                    b.Property<int?>("JobCategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("JobDescription")
@@ -1351,9 +1353,7 @@ namespace CorporateArena.Presentation.Core.Migrations
 
                     b.HasOne("CorporateArena.Domain.Core.Entities.JobCategory", "JobCategory")
                         .WithMany("Vacancies")
-                        .HasForeignKey("JobCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("JobCategoryId");
                 });
 #pragma warning restore 612, 618
         }

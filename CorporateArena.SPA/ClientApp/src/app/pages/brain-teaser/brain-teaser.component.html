@@ -5,81 +5,98 @@
   </div>
 
   <div class="container">
-    <div class="question-card mt-5" [ngClass]="isSelected(brainTeaser.id) ? 'shadow' : null"
-      *ngFor="let brainTeaser of brainTeasers" (click)="toggleSelected(brainTeaser.id)">
+    <div
+      class="question-card mt-5"
+      [ngClass]="isSelected(brainTeaser.id) ? 'shadow' : null"
+      *ngFor="let brainTeaser of brainTeasers"
+      (click)="toggleSelected(brainTeaser.id)"
+    >
       <div class="mb-4">
         <div class="stats">
-          <span *ngIf="brainTeaser.brainTeaserAnswers?.length > 0">{{ brainTeaser.brainTeaserAnswers.length }}
-            answers</span>
-          <span *ngIf="brainTeaser.brainTeaserAnswers === null">No answers yet</span>
-          <span *ngIf="brainTeaser.brainTeaserAnswers?.length === 0">No answers yet</span>
-          <span>Posted {{ brainTeaser.dateCreated | date: "fullDate" }}</span>
+          <span *ngIf="brainTeaser.questionAnswers.length > 0"
+            >{{ brainTeaser.questionAnswers.length }} answers</span
+          >
+          <span *ngIf="brainTeaser.questionAnswers.length === 0"
+            >No answers yet</span
+          >
+          <span>Posted {{ brainTeaser.createdOn | date: "fullDate" }}</span>
         </div>
         <h2>Riddle</h2>
         <p>
-          {{ brainTeaser.riddle }}
+          {{ brainTeaser.content }}
         </p>
         <button class="btn answer-btn" (click)="toggleView('answer')">
           Answer it
         </button>
         <button
           class="btn view-btn"
-          *ngIf="brainTeaser.brainTeaserAnswers.length > 0"
+          *ngIf="brainTeaser.questionAnswers.length > 0"
           (click)="toggleView('answers')"
         >
           View Answers
         </button>
-
-        <!-- My new Button implemented -->
-        <!-- <a class="btn answer-btn" routerLink="{{ getUrl(brainTeaser.id) }}">
-          Answer it
-        </a> -->
-        <a class="btn view-btn" 
-        *ngIf="brainTeaser.brainTeaserAnswers.length > 0"
-        routerLink="{{ getUrl(brainTeaser.id) }}">
-          Approve Answers
-        </a>
       </div>
 
       <ng-template [ngIf]="isSelected(brainTeaser.id)">
         <ng-template [ngIf]="view === 'answers'">
-          <div *ngFor="let winner of brainTeaser.brainTeaserWinners" >
-            <div class="answer-card mb-4 mx-3" *ngIf="winner.isDisplayed">
+          <div
+            class="answer-card mb-4 mx-3"
+            *ngFor="let questionAnswer of brainTeaser.questionAnswers"
+          >
             <div class="d-flex align-items-center justify-content-between">
               <div class="d-flex">
                 <div class="user-image mr-3">
-                  <img class="img-fluid" src="/assets/mock_user_image.jpg" alt="" />
+                  <img
+                    class="img-fluid"
+                    src="/assets/mock_user_image.jpg"
+                    alt=""
+                  />
                 </div>
                 <div class="user">
-                  <h4 class="font-weight-bold">{{ winner.userName }}</h4>
+                  <h4 class="font-weight-bold">{{ questionAnswer.userId }}</h4>
                   <span>... writes</span>
                 </div>
               </div>
               <span class="time">{{
-                winner.dateCreated | date: "fullDate"
+                questionAnswer.createdOn | date: "fullDate"
               }}</span>
             </div>
             <p class="mt-3">
-              {{ winner.answer }}
+              {{ questionAnswer.userId }}
             </p>
           </div>
-          </div>
         </ng-template>
-        <ng-template [ngIf]="view === 'answer'">
-        <div class="px-5 answer-box row d-flex">
-          <img src="/assets/user-icon.svg" alt=""
-            class="img-fluid d-none d-md-block mr-3 col-2 align-self-baseline w-25 p-4 bg-white shadow-sm" />
-          <form (ngSubmit)="submitAnswer(brainTeaser.id)" class="col">
-            <div class="input mb-3 w-75">
-              <input type="text" placeholder="Name" name="name" [(ngModel)]="name" />
-            </div>
+
+        <div class="px-5 answer-box row d-flex" *ngIf="view === 'answer'">
+          <img
+            src="/assets/user-icon.svg"
+            alt=""
+            class="img-fluid d-none d-md-block mr-3 col-2 align-self-baseline w-25 p-4 bg-white shadow-sm"
+          />
+          <form
+            (ngSubmit)="submitquestionAnswer(brainTeaser.id)"
+            class="col"
+            *ngIf="brainTeaser.questionOptions.length > 0"
+          >
             <div class="input w-75">
-              <textarea name="body" id="" rows="7" placeholder="Your answer" [(ngModel)]="body"></textarea>
+              <div *ngFor="let questionOption of brainTeaser.questionOptions">
+                <input
+                  type="radio"
+                  value="{{ questionOption.isCorrect }}"
+                  name="{{ brainTeaser.id }}"
+                  class="w-25"
+                  (change)="onSelectionChange(questionOption.isCorrect)"
+                />
+                {{ questionOption.content }}
+              </div>
             </div>
             <button type="submit" class="btn">Submit</button>
           </form>
+
+          <div *ngIf="!(brainTeaser.questionOptions.length > 0)">
+            <h5>No options available</h5>
+          </div>
         </div>
-      </ng-template>
       </ng-template>
     </div>
 

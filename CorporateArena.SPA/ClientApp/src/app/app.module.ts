@@ -1,7 +1,9 @@
+import { LoaderInterceptorService } from './interceptors/loader-interceptor.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +25,7 @@ import { TrafficUpdateCreateComponent } from './pages/traffic-update-create/traf
 import { QuestionOptionComponent } from './pages/question-option/question-option.component';
 import { QuestionComponent } from './pages/question/question.component';
 import { QuestionCreateComponent } from './pages/question-create/question-create.component';
+
 
 
 @NgModule({
@@ -47,8 +50,14 @@ import { QuestionCreateComponent } from './pages/question-create/question-create
     QuestionCreateComponent,
     QuestionOptionComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
-  providers: [],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, NgxSpinnerModule],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptorService,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

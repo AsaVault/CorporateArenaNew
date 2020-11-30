@@ -2,7 +2,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiUrls } from '../app-config';
-import { Question, QuestionOptions } from '../models';
+import { Answer, Question, QuestionOptions } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +42,13 @@ postQuestionOptions(id: number, data: QuestionOptions): Observable<any> {
     data,
     {responseType: 'text'}
   );
+}
+
+  postAnswer(id: number, data: Answer): Observable<any>{
+    return this.http.post(
+      `${this.questionUrl}/answer/${id}`,
+      data,
+      { responseType: 'text' }
+    );
 }
 }

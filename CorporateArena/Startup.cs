@@ -8,6 +8,9 @@ using CorporateArena.DataAccess.Entities;
 using CorporateArena.DataAccess.Interfaces;
 using CorporateArena.DataAccess.Repositories;
 using CorporateArena.Domain;
+using CorporateArena.Domain.Core.Entities;
+using CorporateArena.Domain.Core.Implementation;
+using CorporateArena.Domain.Core.Interfaces.Services;
 using CorporateArena.Infrastructure;
 using CorporateArena.Infrastructure.Core.Repository;
 using CorporateArena.Presentation;
@@ -145,9 +148,12 @@ namespace CorporateArena
             services.AddScoped<IVacancyRepo, VacancyRepo>();
             services.AddScoped<IRepo<Contact>, ContactRepo>();
             services.AddScoped<IUserRoleRepo, UserRoleRepo>();
+
             services.AddScoped<IRepository<Question>, CorporateArenaRepository<Question>>();
             services.AddScoped<IRepository<QuestionOption>, CorporateArenaRepository<QuestionOption>>();
             services.AddScoped<IRepository<QuestionAnswer>, CorporateArenaRepository<QuestionAnswer>>();
+            services.AddScoped<IRepository<Company>, CorporateArenaRepository<Company>>();
+            services.AddScoped<IRepository<JobCategory>, CorporateArenaRepository<JobCategory>>();
             
 
 
@@ -160,6 +166,8 @@ namespace CorporateArena
             services.AddTransient<IVacancyService, VacancyService>();
             services.AddTransient<IPrivilegeService, PrivilegeService>();
             services.AddTransient<IQuestionService, QuestionService>();
+            services.AddTransient<ICompanyService, CompanyService>();
+            services.AddTransient<IJobCategoryService, JobCategoryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

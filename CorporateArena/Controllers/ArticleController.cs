@@ -47,10 +47,22 @@ namespace CorporateArena.Presentation
         /// 
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetAllArticles")]
-        public async Task<IActionResult> GetAllArticles()
+        [HttpGet("GetApprovedArticles")]
+        public async Task<IActionResult> GetApprovedArticles()
         {
-            var result = await _service.getAllAsync();
+            var result = await _service.getApprovedArticlesAsync();
+            return Ok(result);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetArticles")]
+        public async Task<IActionResult> GetArticles()
+        {
+            var result = await _service.getArticlesAsync();
             return Ok(result);
         }
 

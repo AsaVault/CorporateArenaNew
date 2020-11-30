@@ -12,8 +12,9 @@ namespace CorporateArena.Domain
         Task  deleteAllByIDAsync(int ID);
         
         Task deleteAsync(int ID);
-        
-        Task<List<Article>> getAllAsync();
+
+        Task<List<Article>> getArticlesAsync();
+        Task<List<Article>> getApprovedArticlesAsync();
 
         Task<ArticleComment> getSingleCommentAsync(int userID, int articleID, int commentID);
 

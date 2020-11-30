@@ -37,11 +37,24 @@ namespace CorporateArena.Infrastructure
             }
         }
 
-        public async Task<List<Article>> getAllAsync()
+        public async Task<List<Article>> getApprovedArticlesAsync()
         {
             try
             {
                 var articles = await _context.Articles.Include(x=>x.Comments).Where(x=>x.isApproved == true).OrderByDescending(x=>x.DateCreated).ToListAsync();
+                return articles;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Article>> getArticlesAsync()
+        {
+            try
+            {
+                var articles = await _context.Articles.Include(x => x.Comments).OrderByDescending(x => x.DateCreated).ToListAsync();
                 return articles;
             }
             catch (Exception ex)

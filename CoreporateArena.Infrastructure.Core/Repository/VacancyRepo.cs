@@ -1,4 +1,5 @@
-﻿using CorporateArena.Domain;
+﻿using CorporateArena.DataAccess.Entities;
+using CorporateArena.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace CorporateArena.Infrastructure
         {
             try
             {
-                var vacancies = await _context.Vacancies.OrderByDescending(x=>x.DateCreated).ToListAsync();
+                var vacancies = await _context.Vacancies.Include(x=>x.Company).Include(x => x.JobCategory).OrderByDescending(x=>x.CreatedOn).ToListAsync();
                 return vacancies;
             }
             catch(Exception ex)
@@ -64,7 +65,7 @@ namespace CorporateArena.Infrastructure
         {
             try
             {
-                var vacancies = await _context.Vacancies.Where(x => x.Company == company).ToListAsync();
+                var vacancies = await _context.Vacancies.Where(x => x.Company.Name == company).ToListAsync();
                 return vacancies;
             }
             catch (Exception ex)
@@ -73,11 +74,11 @@ namespace CorporateArena.Infrastructure
             }
         }
 
-        public async Task<List<Vacancy>> getByIndustryAsync(string industry)
+        public async Task<List<Vacancy>> getByJobCategoryAsync(string jobCategory)
         {
             try
             {
-                var vacancies = await _context.Vacancies.Where(x => x.Industry == industry).ToListAsync();
+                var vacancies = await _context.Vacancies.Where(x => x.JobCategory.Name == jobCategory).ToListAsync();
                 return vacancies;
             }
             catch (Exception ex)
@@ -125,21 +126,68 @@ namespace CorporateArena.Infrastructure
             }
         }
 
+        public async Task<List<Vacancy>> getByJobCategoryIdAsync(int id)
+        {
+            try
+            {
+                var vacancies = await _context.Vacancies.Where(x => x.JobCategoryId == id).ToListAsync();
+                return vacancies;
+            }
+            catch (Exception ex)
+            {
+                throw ex;      
+            }
+        }
+
+        public async Task<List<Vacancy>> getByCompanyIdAsync(int id)
+        {
+            try
+            {
+                var vacancies = await _context.Vacancies.Where(x => x.CompanyId == id).ToListAsync();
+                return vacancies;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Vacancy>> getByJobTypeAsync(int id)
+        {
+            try
+            {
+                var vacancies = await _context.Vacancies.Where(x => x.JobType.GetHashCode() == id).ToListAsync();
+                return vacancies;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<int> insertAsync(Vacancy data)
         {
             try
             {
                 var vacancy = new Vacancy
                 {
-                    DateCreated = DateTime.Now,
+                    CreatedOn = DateTime.Now,
                     JobDescription = data.JobDescription,
                     JobTitle = data.JobTitle,
-                    Company = data.Company,
+                    JobExperiences = data.JobExperiences,
+                    JobResponsibilities = data.JobResponsibilities,
+                    JobSkills = data.JobSkills,
+                    JobSummary = data.JobSummary,
+                    JobType = data.JobType,
+                    CompanyId = data.CompanyId,
                     Email = data.Email,
                     Location = data.Location,
                     Url = data.Url,
+                    RequiredKnowledge = data.RequiredKnowledge,
+                    Salary = data.Salary,
+                    KeyPerformance = data.KeyPerformance,
                     UserCreated = data.UserCreated,
-                    Industry=data.Industry,
+                    JobCategoryId=data.JobCategoryId,
                     Mode=data.Mode
                 };
                 await _context.Vacancies.AddAsync(vacancy);
@@ -163,12 +211,10 @@ namespace CorporateArena.Infrastructure
                 if (data.Url != null) vacancy.Url = data.Url;
                 if (data.Email != null) vacancy.Email = data.Email;
                 if (data.Company != null) vacancy.Company = data.Company;
-                vacancy.DateModified = DateTime.Now;
+                vacancy.UpdatedOn = DateTime.Now;
 
                 _context.Vacancies.Update(vacancy);
                 await _context.SaveChangesAsync();
-
-
             }
             catch (Exception ex)
             {

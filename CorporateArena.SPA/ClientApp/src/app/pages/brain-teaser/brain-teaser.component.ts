@@ -1,5 +1,6 @@
+import { QuestionService } from './../../services/question.service';
 import { Component, OnInit } from '@angular/core';
-import { BrainTeaser, CommentRequest } from 'src/app/models';
+import { Answer, BrainTeaser, Question } from 'src/app/models';
 import { BrainTeaserAnswer } from 'src/app/models/BrainTeaserAnswer';
 import { BrainTeaserService } from '../../services/brain-teaser.service';
 
@@ -9,19 +10,25 @@ import { BrainTeaserService } from '../../services/brain-teaser.service';
   styleUrls: ['./brain-teaser.component.scss'],
 })
 export class BrainTeaserComponent implements OnInit {
-  brainTeasers: BrainTeaser[];
+  brainTeasers: Question[];
   selectedBrainTeaser: number;
+  page: number;
+  pageSize: number;
   name = '';
   body = '';
   brainTeaserId;
-  view = '';
-  isSubmitted: boolean;
+  view = 'answer';
+  username = 'admin';
+  selectedEntry: boolean;
 
-  constructor(private service: BrainTeaserService) { }
+  constructor(private service: QuestionService) { }
 
   ngOnInit(): void {
-    this.service.getAll().subscribe((brainTeasers) => {
-      this.brainTeasers = brainTeasers;
+    this.page = 1;
+    this.pageSize = 10;
+    this.service.getAll(1, 10).subscribe((data) => {
+      this.brainTeasers = data;
+      // console.log(`Brain teasers are as follows: ${JSON.stringify(this.brainTeasers)}`);
       if (this.brainTeasers.length > 0) {
         this.selectedBrainTeaser = this.brainTeasers[0].id;
       }
@@ -49,30 +56,48 @@ export class BrainTeaserComponent implements OnInit {
     return id === this.selectedBrainTeaser;
   }
 
-  submitAnswer(id: number): void {
-    if (this.body.length === 0 || this.name.length === 0) {
+  submitquestionAnswer(id: number): void {
+
+    // console.log(`Response was ${this.selectedEntry}`);
+
+    if (this.selectedEntry === undefined)
+    {
+      // console.log(`Please click an option`);
+      console.log('Please click an option!', 'Alert!');
       return;
     }
 
-    const answer: BrainTeaserAnswer = {
-      id: 0,
-      dateCreated: new Date(),
-      userCreated: 1,
-      userName: this.name,
-      answer: this.body,
-      isApproved: false,
-      brainTeaserID: id,
+    const answer: Answer = {
+      questionId : id,
+      username : this.username,
+      isCorrect: this.selectedEntry
     };
 
-    this.service.postAnswer(id, answer).subscribe((newComment) => {
-      // this.brainTeasers[id].brainTeaserAnswers = [
-      //   newComment,
-      //   ...this.brainTeasers[id].brainTeaserAnswers,
-      // ];
-      this.body = '';
-      this.name = '';
-      this.isSubmitted = true;
+    // console.log(`sending to server: ${JSON.stringify(answer)}`);
+
+    this.service.postAnswer(id, answer).subscribe((data) => {
+      if(data.toString() === 'You have answered the question already !!!')
+      {
+        console.log(data.toString(), 'Alert!');
+        return;
+      }
+      if(this.selectedEntry)
+      {
+        console.log('Correct!', 'Result!');
+      }
+      else
+      {
+        console.log('Incorrect', 'Result!');
+      }
+      // console.log(`response from server: ${data}`);
+      // this.router.navigate(['/brain_teasers']);
+      // window.location.reload();
     });
+  }
+
+  onSelectionChange(entry): void {
+    // console.log(`radio button was clicked ${entry}`);
+    this.selectedEntry = entry;
   }
 
   getUrl(slug: string): string {

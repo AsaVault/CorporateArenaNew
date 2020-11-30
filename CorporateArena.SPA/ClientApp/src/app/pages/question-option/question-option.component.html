@@ -58,24 +58,36 @@
             />
             <form (ngSubmit)="submitOption()" class="col">
               <div class="input mb-3 w-75">
+                <label for="enterOption" class="mr-1">Enter an option</label>
                 <input
                   type="text"
                   placeholder="content"
-                  name="name"
+                  name="enterOption"
                   [(ngModel)]="content"
                 />
               </div>
               <div class="input mb-3 w-75">
-                <div class="mr-1">
-                  <input
-                    type="text"
-                    placeholder="option letter"
-                    name="name"
-                    [(ngModel)]="optionLetter"
-                  />
-                </div>
+                <label for="optionLetter" class="mr-1"
+                  >Choose option letter:</label
+                >
+                <select
+                  [(ngModel)]="optionLetter"
+                  name="optionLetter"
+                  id="optionLetter"
+                >
+                  <optgroup label="Choose option letter">
+                    <option name="optionLetter" value="A">A</option>
+                    <option name="optionLetter" value="B">B</option>
+                    <option name="optionLetter" value="C">C</option>
+                    <option name="optionLetter" value="D">D</option>
+                    <option name="optionLetter" value="E">E</option>
+                  </optgroup>
+                </select>
               </div>
               <div class="input mb-3 w-75">
+                <label for="{{ selectedEntry }}" class="mr-1"
+                  >Is this the correct option?</label
+                >
                 <div class="mr-1">
                   <input
                     type="radio"

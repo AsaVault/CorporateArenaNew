@@ -19,12 +19,14 @@ namespace CorporateArena.Domain
         Task<Vacancy> getAsync(int ID);
         Task<List<Vacancy>> getByModeAsync(string mode);
 
-        Task<List<Vacancy>> getByIndustryAsync(string industry);
+        Task<List<Vacancy>> getByJobCategoryAsync(string jobCategory);
 
         Task<List<Vacancy>> getByLocationAsync(string location);
 
         Task<List<Vacancy>> getByTitleAsync(string title);
-
+        Task<List<Vacancy>> getByJobCategoryIdAsync(int id);
+        Task<List<Vacancy>> getByCompanyIdAsync(int id);
+        Task<List<Vacancy>> getByJobTypeAsync(int id);
         Task<List<Vacancy>> getByCompanyAsync(string company);
 
 

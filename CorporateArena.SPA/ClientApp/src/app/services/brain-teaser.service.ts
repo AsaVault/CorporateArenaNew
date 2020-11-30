@@ -5,6 +5,7 @@ import { BrainTeaser, Comment, CommentRequest } from '../models';
 import { Observable } from 'rxjs';
 import { ApiUrls } from '../app-config';
 import { BrainTeaserAnswer } from '../models/BrainTeaserAnswer';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Injectable({
   providedIn: 'root',
 })
@@ -15,10 +16,12 @@ export class BrainTeaserService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private spinner: NgxSpinnerService) { }
 
   getAll(): Observable<BrainTeaser[]> {
+    this.spinner.show();
     return this.http.get<BrainTeaser[]>(`${this.brainTeaserUrl}/GetAllBrainTeasers`);
+    this.spinner.hide();
   }
 
   get(slug: string): Observable<BrainTeaser> {

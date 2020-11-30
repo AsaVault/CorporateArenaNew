@@ -41,10 +41,21 @@ namespace CorporateArena.Presentation.Core.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetAllVacancies")]
-        public async Task<IActionResult> GetAllVacancies()
+        public async Task<IActionResult> GetAllVacancies(string title, string location)
         {
             var result = await _service.GetAllVacanciesAsync();
-            return Ok(result);
+            var resultQuerable = result.AsQueryable();
+            if (!string.IsNullOrWhiteSpace(title))
+            {
+                resultQuerable = resultQuerable.Where(x => x.JobTitle.ToLower().Contains(title.ToLower()));
+            }
+
+            if (!string.IsNullOrWhiteSpace(location))
+            {
+                resultQuerable = resultQuerable.Where(x => x.Location.ToLower().Contains(location.ToLower()));
+            }
+
+            return Ok(resultQuerable.ToList());
         }
 
         /// <summary>
@@ -107,19 +118,62 @@ namespace CorporateArena.Presentation.Core.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="industry"></param>
+        /// <param name="jobCategory"></param>
         /// <returns></returns>
 
         //[Authorize]
         //[AuthorizePermission(Permissions = Permission.ReadVacancy)]
-        [HttpGet("GetVacancyByIndustry/{industry}")]
-        public async Task<IActionResult> GetVacancyByIndustry(string industry)
+        [HttpGet("GetVacancyByIndustry/{jobCategory}")]
+        public async Task<IActionResult> GetVacancyByJobCategory(string jobCategory)
         {
-            var result = await _service.GetVacancyByIndustryAsync(industry);
+            var result = await _service.GetVacancyByJobCategoryAsync(jobCategory);
             return Ok(result);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
 
+        //[Authorize]
+        //[AuthorizePermission(Permissions = Permission.ReadVacancy)]
+        [HttpGet("GetVacancyByJobCategoryId/{id}")]
+        public async Task<IActionResult> GetVacancyByJobCategoryId(int id)
+        {
+            var result = await _service.GetVacancyByJobCategoryIdAsync(id);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+
+        //[Authorize]
+        //[AuthorizePermission(Permissions = Permission.ReadVacancy)]
+        [HttpGet("GetVacancyByCompanyId/{id}")]
+        public async Task<IActionResult> GetVacancyByCompanyId(int id)
+        {
+            var result = await _service.GetVacancyByCompanyIdAsync(id);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+
+        //[Authorize]
+        //[AuthorizePermission(Permissions = Permission.ReadVacancy)]
+        [HttpGet("GetVacancyByJobType/{id}")]
+        public async Task<IActionResult> GetVacancyByJobType(int id)
+        {
+            var result = await _service.GetVacancyByJobTypeAsync(id);
+            return Ok(result);
+        }
 
         /// <summary>
         /// 

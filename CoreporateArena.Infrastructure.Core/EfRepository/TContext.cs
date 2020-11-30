@@ -1,5 +1,6 @@
 ﻿using CorporateArena.DataAccess.Entities;
 using CorporateArena.Domain;
+using CorporateArena.Domain.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,8 @@ namespace CorporateArena.Infrastructure
         public DbSet<Question> Questions { get; set; }
         public DbSet<QuestionOption> QuestionOptions { get; set; }
         public DbSet<QuestionAnswer> QuestionAnswers { get; set; }
+        public DbSet<JobCategory> JobCategorys { get; set; }
+        public DbSet<Company> Companys { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

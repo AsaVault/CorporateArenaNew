@@ -1,3 +1,4 @@
+import Answer from './answer';
 import Question from './Question';
 import QuestionOptions from './QuestionOptions';
 import QuestionAnswers from './QuestionAnswers';
@@ -21,5 +22,6 @@ export {
   JobType,
   Question,
   QuestionOptions,
-  QuestionAnswers
+  QuestionAnswers,
+  Answer
 };

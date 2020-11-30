@@ -27,5 +27,7 @@ namespace CorporateArena.Domain
         public int RoleID { get; set; }
         [InverseProperty("User")]
         public ICollection<QuestionAnswer> UserAnswers { get; set; }
+        [InverseProperty("User")]
+        public ICollection<Article> UserArticles { get; set; }
     }
 }
