@@ -75,6 +75,15 @@ namespace CorporateArena.Presentation
             return Ok(result);
         }
 
+        //[Authorize]
+        //[AuthorizePermission(Permissions = Permission.ReadArticle)]
+        [HttpGet("GetApprovedArticle/{ID}")]
+        public async Task<IActionResult> GetApprovedArticle(int ID)
+        {
+            var result = await _service.GetApprovedArticleWithCommentsAsync(ID);
+            return Ok(result);
+        }
+
         /// <summary>
         /// 
         /// </summary>

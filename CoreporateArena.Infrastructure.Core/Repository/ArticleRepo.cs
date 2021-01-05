@@ -88,7 +88,7 @@ namespace CorporateArena.Infrastructure
         {
             try
             {
-                var article = await _context.Articles.Where(x => x.ID == ID && x.isApproved == true).SingleOrDefaultAsync();
+                var article = await _context.Articles.Where(x => x.ID == ID).SingleOrDefaultAsync();
                 //var article = await _context.Articles.Where(x => x.ID == ID).SingleOrDefaultAsync();
                 return article;
             }
@@ -98,13 +98,28 @@ namespace CorporateArena.Infrastructure
             }
         }
 
-        // GetUnApprove Article
-        public async Task<Article> getUnappproveAsync(int ID)
+        // Get Approve Article
+        public async Task<Article> getApprovedAsync(int ID)
         {
             try
             {
                 //var article = await _context.Articles.Where(x => x.ID == ID && x.isApproved == true).SingleOrDefaultAsync();
-                var article = await _context.Articles.Where(x => x.ID == ID && x.isApproved ==false).SingleOrDefaultAsync();
+                var article = await _context.Articles.Where(x => x.ID == ID && x.isApproved ==true).SingleOrDefaultAsync();
+                return article;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        // GetUnApprove Article
+        public async Task<Article> getUnapprovedAsync(int ID)
+        {
+            try
+            {
+                //var article = await _context.Articles.Where(x => x.ID == ID && x.isApproved == true).SingleOrDefaultAsync();
+                var article = await _context.Articles.Where(x => x.ID == ID && x.isApproved == false).SingleOrDefaultAsync();
                 return article;
             }
             catch (Exception ex)
@@ -147,7 +162,7 @@ namespace CorporateArena.Infrastructure
         {
             try
             {
-                var article = await _context.Articles.Where(x => x.ID == data.ID && x.isApproved == true).SingleOrDefaultAsync();
+                var article = await _context.Articles.Where(x => x.ID == data.ID).SingleOrDefaultAsync();
 
                 article.DateModified = DateTime.Now;
                     if (data.Content != null) article.Content = data.Content;
@@ -166,13 +181,18 @@ namespace CorporateArena.Infrastructure
         }
 
         //Update Approve Async
-        public async Task updateApproveAsync(Article data)
+        public async Task updateApprovedAsync(Article data)
         {
             try
             {
-                var article = await _context.Articles.Where(x => x.ID == data.ID && x.isApproved == false).SingleOrDefaultAsync();
+                var article = await _context.Articles.Where(x => x.ID == data.ID && x.isApproved == true).SingleOrDefaultAsync();
 
+                article.DateModified = DateTime.Now;
+                if (data.Content != null) article.Content = data.Content;
+                if (data.ImageUrl != null) article.ImageUrl = data.ImageUrl;
+                if (data.Title != null) article.Title = data.Title;
                 article.isApproved = data.isApproved;
+                if (data.ArticleLikesCount != 0) article.ArticleLikesCount = data.ArticleLikesCount;
 
                 _context.Articles.Update(article);
                 await _context.SaveChangesAsync();

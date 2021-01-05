@@ -70,6 +70,17 @@ namespace CorporateArena.Domain
 
             return article;
         }
+
+        public async Task<Article> GetApprovedArticleWithCommentsAsync(int ID)
+        {
+            var article = await _repo.getApprovedAsync(ID);
+
+            var comments = await _cRepo.getAllByIDAsync(ID);
+            if (comments != null && comments.Count > 0)
+                article.Comments = comments;
+
+            return article;
+        }
         public async Task<SaveResponse> UpdateArticleAsync(Article data)
         {
             //var userExist = await _uService.CheckIfUserExist(data.AuthorID);
@@ -83,6 +94,23 @@ namespace CorporateArena.Domain
             //    return new SaveResponse { Result = "User does not have permission to perform this action" };
 
             await _repo.updateAsync(data);
+            return new SaveResponse { status = true, Result = "Article successfully updated" };
+
+        }
+
+        public async Task<SaveResponse> UpdateApprovedArticleAsync(Article data)
+        {
+            //var userExist = await _uService.CheckIfUserExist(data.AuthorID);
+            //if (!userExist)
+            //    return new SaveResponse { status = false, Result = "User Not Found" };
+
+            //string name = "UpdateArticle";
+            //var permission = await _uService.CheckforPermission(data.AuthorID, name);
+
+            //if (!permission)
+            //    return new SaveResponse { Result = "User does not have permission to perform this action" };
+
+            await _repo.updateApprovedAsync(data);
             return new SaveResponse { status = true, Result = "Article successfully updated" };
 
         }
@@ -113,12 +141,14 @@ namespace CorporateArena.Domain
         // Approve Article 
         public async Task<SaveResponse> ApproveArticleAsync(int userID, int articleID)
         {
-            var article = await _repo.getUnappproveAsync(articleID);
+            var article = await _repo.getUnapprovedAsync(articleID);
 
             if (article != null && userID == 1 || userID == 2)
             {
+                if(article.isApproved) return new SaveResponse { status = true, Result = "Article already approved" };
+
                 article.isApproved = true;
-                await _repo.updateApproveAsync(article);
+                await _repo.updateApprovedAsync(article);
                 return new SaveResponse { status = true, Result = "Article was approved" };
             }
             else
